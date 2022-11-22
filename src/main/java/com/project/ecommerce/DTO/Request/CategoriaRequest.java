@@ -1,12 +1,11 @@
 package com.project.ecommerce.DTO.Request;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-public class CategoriaCreateRequest {
+public class CategoriaRequest {
 
     private String name;
 
-    public CategoriaCreateRequest() {}
+    public CategoriaRequest() {}
 
     public String getName() {
         return name;
