@@ -1,4 +1,6 @@
-package com.project.ecommerce.model;
+package com.project.ecommerce.models;
+
+import com.project.ecommerce.models.enums.Pagamento;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -14,7 +16,9 @@ public class Pedido implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String pagamento;
+    @OneToOne(mappedBy = "pedido")
+    private Pagamento pagamento;
+
     private double total;
 
     @OneToMany(mappedBy = "id.pedido")
@@ -22,16 +26,16 @@ public class Pedido implements Serializable {
 
     public Pedido() {}
 
-    public Pedido(String pagamento, double total) {
+    public Pedido(Pagamento pagamento, double total) {
         this.pagamento = pagamento;
         this.total = total;
     }
 
-    public String getPagamento() {
+    public Pagamento getPagamento() {
         return pagamento;
     }
 
-    public void setPagamento(String pagamento) {
+    public void setPagamento(Pagamento pagamento) {
         this.pagamento = pagamento;
     }
 

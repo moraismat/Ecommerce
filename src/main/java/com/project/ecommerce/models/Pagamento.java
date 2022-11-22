@@ -1,4 +1,6 @@
-package com.project.ecommerce.model.enums;
+package com.project.ecommerce.models.enums;
+
+import com.project.ecommerce.models.Pedido;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -18,14 +20,19 @@ public class Pagamento implements Serializable {
     private Date dtVencimento;
     private int numeroParcelas;
 
+    @OneToOne
+    @JoinColumn(name = "pedido_id")
+    private Pedido pedido;
+
     public Pagamento() {}
 
-    public Pagamento(Integer id, EstadoPagamento estadoPagamento, Date dtPagamento, Date dtVencimento, int numeroParcelas) {
+    public Pagamento(Integer id, EstadoPagamento estadoPagamento, Date dtPagamento, Date dtVencimento, int numeroParcelas, Pedido pedido) {
         this.id = id;
         this.estadoPagamento = estadoPagamento;
         this.dtPagamento = dtPagamento;
         this.dtVencimento = dtVencimento;
         this.numeroParcelas = numeroParcelas;
+        this.pedido = pedido;
     }
 
     public EstadoPagamento getEstadoPagamento() {
@@ -58,5 +65,13 @@ public class Pagamento implements Serializable {
 
     public void setNumeroParcelas(int numeroParcelas) {
         this.numeroParcelas = numeroParcelas;
+    }
+
+    public Pedido getPedido() {
+        return pedido;
+    }
+
+    public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
     }
 }

@@ -1,4 +1,4 @@
-package com.project.ecommerce.model;
+package com.project.ecommerce.models;
 
 import javax.persistence.*;
 import java.io.Serializable;

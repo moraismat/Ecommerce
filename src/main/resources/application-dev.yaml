@@ -4,3 +4,11 @@ spring:
     url: jdbc:mysql://localhost:3306/ecommerce
     username: root
     password: admin
+
+  sql:
+    init: always
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create
