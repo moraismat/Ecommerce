@@ -1,5 +1,7 @@
 package com.project.ecommerce.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -18,10 +20,12 @@ public class Produto implements Serializable {
 
     private Double price;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="categoria_id")
     private Categoria categoria;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "id.produto")
     private Set<ItemPedido> itens = new HashSet<>();
 

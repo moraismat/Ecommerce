@@ -30,7 +30,9 @@ public class CategoriaService {
     public Categoria findById(int id) throws Exception {
         Optional<Categoria> categoria = categoriaRepository.findById(id);
         if (categoria.isEmpty()){
-           throw new Exception(Constantes.NENHUM_REGISTRO_ENCONTRADO_POR_ID + id);
+            throw new Exception("Categoria: "
+                    + Constantes.NENHUM_REGISTRO_ENCONTRADO_POR_ID
+                    + id);
         }
 
         return categoria.get();
@@ -51,7 +53,9 @@ public class CategoriaService {
     public void deleteCategoria(int id) throws Exception {
         Optional<Categoria> categoria = categoriaRepository.findById(id);
         if (categoria.isEmpty()){
-            throw new Exception(Constantes.NENHUM_REGISTRO_ENCONTRADO_POR_ID + id);
+            throw new Exception("Categoria: "
+                + Constantes.NENHUM_REGISTRO_ENCONTRADO_POR_ID
+                + id);
         }
 
         categoriaRepository.deleteById(id);
@@ -60,7 +64,9 @@ public class CategoriaService {
     public Categoria updateCategoria(int id, CategoriaRequest categoriaRequest) throws Exception {
         Categoria categoria = categoriaRepository.findById(id).get();
         if (categoria == null){
-            throw new Exception(Constantes.NENHUM_REGISTRO_ENCONTRADO_POR_ID + id);
+            throw new Exception("Categoria: "
+                    + Constantes.NENHUM_REGISTRO_ENCONTRADO_POR_ID
+                    + id);
         }
         categoria.setName(categoriaRequest.getName());
         categoriaRepository.save(categoria);
