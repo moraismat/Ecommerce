@@ -41,7 +41,9 @@ public class CategoriaService {
     public Categoria createNewCategoria(CategoriaRequest categoriaCreateRequest) throws Exception {
         Categoria oldCategoria = categoriaRepository.findByName(categoriaCreateRequest.getName());
         if(oldCategoria != null){
-            throw new Exception(Constantes.CATEGORIA_JA_CADASTRADA + categoriaCreateRequest.getName());
+            throw new Exception(
+                    Constantes.CATEGORIA_JA_CADASTRADA + categoriaCreateRequest.getName()
+            );
         }
 
         Categoria newCategoria = new Categoria(null, categoriaCreateRequest.getName());
