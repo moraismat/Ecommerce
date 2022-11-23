@@ -17,8 +17,7 @@ public class Cliente implements Serializable {
     private Long cpf;
     private Long telefone;
 
-    @OneToOne
-    @JoinColumn(name = "endereco_id")
+    @OneToOne(mappedBy = "cliente", cascade = CascadeType.ALL)
     private Endereco endereco;
 
     public Cliente() {

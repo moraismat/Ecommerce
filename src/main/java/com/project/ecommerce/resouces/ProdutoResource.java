@@ -33,6 +33,12 @@ public class ProdutoResource {
     public ResponseEntity getAllProdutos(@PathVariable int id){
         try {
             Produto produto = produtoService.findById(id);
+            ProdutoResponse produtoResponse = new ProdutoResponse();
+            produtoResponse.categoria_id = produto.getId();
+            produtoResponse.name = produto.getName();
+            produtoResponse.price = produto.getPrice();
+            produtoResponse.categoria = produto.getCategoria().getName();
+            produtoResponse.categoria_id = produto.getCategoria().getId();
 
             return ResponseEntity.ok().body(produto);
         } catch (Exception e) {
@@ -45,9 +51,11 @@ public class ProdutoResource {
         try {
             Produto produto = produtoService.addProduto(produtoRequest);
             ProdutoResponse produtoResponse = new ProdutoResponse();
+            produtoResponse.categoria_id = produto.getId();
             produtoResponse.name = produto.getName();
             produtoResponse.price = produto.getPrice();
             produtoResponse.categoria = produto.getCategoria().getName();
+            produtoResponse.categoria_id = produto.getCategoria().getId();
 
             return ResponseEntity.ok().body(produtoResponse);
         } catch (Exception e){
@@ -60,9 +68,11 @@ public class ProdutoResource {
         try {
             Produto produto = produtoService.updateProduto(produtoRequest);
             ProdutoResponse produtoResponse = new ProdutoResponse();
+            produtoResponse.categoria_id = produto.getId();
             produtoResponse.name = produto.getName();
             produtoResponse.price = produto.getPrice();
             produtoResponse.categoria = produto.getCategoria().getName();
+            produtoResponse.categoria_id = produto.getCategoria().getId();
 
             return ResponseEntity.ok().body(produtoResponse);
         } catch (Exception e){

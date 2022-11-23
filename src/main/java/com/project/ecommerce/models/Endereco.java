@@ -1,5 +1,7 @@
 package com.project.ecommerce.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -18,7 +20,7 @@ public class Endereco implements Serializable {
     private String bairro;
     private String cep;
 
-    @OneToOne
+    @JsonIgnore
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
