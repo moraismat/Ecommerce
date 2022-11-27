@@ -2,6 +2,7 @@ package com.project.ecommerce.models;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Table(name = "cliente")
@@ -13,21 +14,25 @@ public class Cliente implements Serializable {
     private Integer id;
 
     private String name;
-    private String email;
-    private Long cpf;
+    private String EMAIL;
+    private Long CPF;
     private Long telefone;
 
-    @OneToOne(mappedBy = "cliente", cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "endereco_id")
     private Endereco endereco;
+
+    @OneToMany(mappedBy = "cliente")
+    private Set<Pedido> lstPedidos;
 
     public Cliente() {
     }
 
-    public Cliente(Integer id, String name, String email, Long cpf, Long telefone) {
+    public Cliente(Integer id, String name, String EMAIL, Long CPF, Long telefone) {
         this.id = id;
         this.name = name;
-        this.email = email;
-        this.cpf = cpf;
+        this.EMAIL = EMAIL;
+        this.CPF = CPF;
         this.telefone = telefone;
     }
 
@@ -39,20 +44,20 @@ public class Cliente implements Serializable {
         this.name = name;
     }
 
-    public String getEmail() {
-        return email;
+    public String getEMAIL() {
+        return EMAIL;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setEMAIL(String EMAIL) {
+        this.EMAIL = EMAIL;
     }
 
-    public Long getCpf() {
-        return cpf;
+    public Long getCPF() {
+        return CPF;
     }
 
-    public void setCpf(Long cpf) {
-        this.cpf = cpf;
+    public void setCPF(Long CPF) {
+        this.CPF = CPF;
     }
 
     public Long getTelefone() {
@@ -69,5 +74,9 @@ public class Cliente implements Serializable {
 
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
+    }
+
+    public Set<Pedido> getLstPedidos() {
+        return lstPedidos;
     }
 }

@@ -1,11 +1,11 @@
 package com.project.ecommerce.DTO.Request;
 
-public class ClienteCreateRequest {
+public class ClienteRequest {
     public Integer id;
     public Long telefone;
     public String name;
     public String email;
     public Long cpf;
 
-    public ClienteCreateRequest() {}
+    public ClienteRequest() {}
 }

@@ -24,6 +24,10 @@ public class Pedido implements Serializable {
     @OneToMany(mappedBy = "id.pedido")
     private Set<ItemPedido> itensPedidos = new HashSet<ItemPedido>();;
 
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
+    private Cliente cliente;
+
     public Pedido() {}
 
     public Pedido(Pagamento pagamento, double total) {
@@ -53,5 +57,13 @@ public class Pedido implements Serializable {
 
     public void setItensPedidos(Set<ItemPedido> itensPedidos) {
         this.itensPedidos = itensPedidos;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 }

@@ -20,8 +20,7 @@ public class Endereco implements Serializable {
     private String bairro;
     private String cep;
 
-    @JsonIgnore
-    @JoinColumn(name = "cliente_id")
+    @OneToOne(mappedBy = "endereco", cascade = CascadeType.ALL)
     private Cliente cliente;
 
     public Endereco() {

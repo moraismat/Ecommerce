@@ -9,4 +9,5 @@ public final class Constantes {
     public static final String CATEGORIA_JA_CADASTRADA = "A seguinte categoria ja foi cadastrada: ";
     public static final String PRODUTO_JA_CADASTRADO = "O seguinte produto ja foi cadastrado: ";
 
+    public static final String ENDERECO_CADASTRADO_CLIENTE = "Cliente já possui endereço cadastrado";
 }

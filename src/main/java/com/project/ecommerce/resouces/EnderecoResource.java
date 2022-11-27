@@ -1,8 +1,8 @@
 package com.project.ecommerce.resouces;
 
-import com.project.ecommerce.DTO.Request.ClienteRequest;
-import com.project.ecommerce.Services.ClienteService;
-import com.project.ecommerce.models.Cliente;
+import com.project.ecommerce.DTO.Request.EnderecoRequest;
+import com.project.ecommerce.Services.EnderecoService;
+import com.project.ecommerce.models.Endereco;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,49 +10,49 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/cliente")
-public class ClienteResource {
+@RequestMapping(value = "/endereco")
+public class EnderecoResource {
 
     @Autowired
-    private ClienteService clienteService;
+    private EnderecoService enderecoService;
 
     @GetMapping(value = "")
     private ResponseEntity getAllClientes(){
         try {
-            List<Cliente> lstCliente = clienteService.findAll();
+            List<Endereco> lstEndereco = enderecoService.findAll();
 
-            return ResponseEntity.ok(lstCliente);
+            return ResponseEntity.ok(lstEndereco);
         } catch (Exception e){
             return ResponseEntity.ok(e.getMessage());
         }
     }
 
     @GetMapping(value = "/{id}")
-    private ResponseEntity getClienteById(@PathVariable int id){
+    private ResponseEntity getEnderecoById(@PathVariable int id){
         try {
-            Cliente cliente = clienteService.findById(id);
+            Endereco endereco = enderecoService.findById(id);
 
-            return ResponseEntity.ok(cliente);
+            return ResponseEntity.ok(endereco);
         } catch (Exception e){
             return ResponseEntity.ok(e.getMessage());
         }
     }
 
     @PostMapping(value = "/create")
-    private ResponseEntity createNewCliente(@RequestBody ClienteRequest clienteCreateRequest){
+    private ResponseEntity createNewEndereco(@RequestBody EnderecoRequest enderecoCreateRequest){
         try {
-            Cliente cliente = clienteService.createCliente(clienteCreateRequest);
+            Endereco endereco = enderecoService.addEndereco(enderecoCreateRequest);
 
-            return ResponseEntity.ok(cliente);
+            return ResponseEntity.ok(endereco);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
     @DeleteMapping(value = "/{id}/delete")
-    private ResponseEntity deleteCliente(@PathVariable int id){
+    private ResponseEntity deleteEndereco(@PathVariable int id){
         try {
-            clienteService.deleteCliente(id);
+            enderecoService.deleteEndereco(id);
 
             return ResponseEntity.noContent().build();
         } catch (Exception e) {
@@ -61,11 +61,11 @@ public class ClienteResource {
     }
 
     @PutMapping(value = "/{id}/update")
-    private ResponseEntity updateCliente(@PathVariable int id, @RequestBody ClienteRequest clienteCreateRequest){
+    private ResponseEntity updateEndereco(@PathVariable int id, @RequestBody EnderecoRequest enderecoCreateRequest){
         try {
-            Cliente cliente = clienteService.updateCliente(clienteCreateRequest);
+            Endereco endereco = enderecoService.updateEndereco(enderecoCreateRequest);
 
-            return ResponseEntity.ok(cliente);
+            return ResponseEntity.ok(endereco);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

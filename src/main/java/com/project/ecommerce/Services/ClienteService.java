@@ -1,18 +1,11 @@
 package com.project.ecommerce.Services;
 
 
-import com.project.ecommerce.DTO.Request.ClienteCreateRequest;
-import com.project.ecommerce.DTO.Request.ProdutoDeleteRequest;
-import com.project.ecommerce.DTO.Request.ProdutoRequest;
+import com.project.ecommerce.DTO.Request.ClienteRequest;
 import com.project.ecommerce.Utils.Constantes;
-import com.project.ecommerce.models.Categoria;
 import com.project.ecommerce.models.Cliente;
-import com.project.ecommerce.models.Endereco;
-import com.project.ecommerce.models.Produto;
-import com.project.ecommerce.repositories.CategoriaRepository;
 import com.project.ecommerce.repositories.ClienteRepository;
 import com.project.ecommerce.repositories.EnderecoRepository;
-import com.project.ecommerce.repositories.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,7 +40,7 @@ public class ClienteService {
         return cliente;
     }
 
-    public Cliente createCliente(ClienteCreateRequest clienteCreateRequest) throws Exception {
+    public Cliente createCliente(ClienteRequest clienteCreateRequest) throws Exception {
         Cliente cliente = clienteRepository.findByCPF(clienteCreateRequest.cpf);
         if(cliente != null){
             throw new Exception("Cliente: "
@@ -63,15 +56,15 @@ public class ClienteService {
         }
 
         cliente.setName(clienteCreateRequest.name);
-        cliente.setCpf(clienteCreateRequest.cpf);
-        cliente.setEmail(clienteCreateRequest.email);
+        cliente.setCPF(clienteCreateRequest.cpf);
+        cliente.setEMAIL(clienteCreateRequest.email);
         cliente.setTelefone(clienteCreateRequest.telefone);
 
         clienteRepository.save(cliente);
         return  cliente;
     }
 
-    public Cliente updateCliente(ClienteCreateRequest clienteCreateRequest) throws Exception {
+    public Cliente updateCliente(ClienteRequest clienteCreateRequest) throws Exception {
         Cliente cliente = clienteRepository.findById(clienteCreateRequest.id).get();
         if(cliente == null){
             throw new Exception("Cliente: "
@@ -80,8 +73,8 @@ public class ClienteService {
         }
 
         cliente.setName(clienteCreateRequest.name);
-        cliente.setCpf(clienteCreateRequest.cpf);
-        cliente.setEmail(clienteCreateRequest.email);
+        cliente.setCPF(clienteCreateRequest.cpf);
+        cliente.setEMAIL(clienteCreateRequest.email);
         cliente.setTelefone(clienteCreateRequest.telefone);
 
         clienteRepository.save(cliente);
