@@ -19,6 +19,8 @@ public class Endereco implements Serializable {
     private String complemento;
     private String bairro;
     private String cep;
+    private String cidade;
+    private String estado;
 
     @OneToOne(mappedBy = "endereco", cascade = CascadeType.ALL)
     private Cliente cliente;
@@ -26,12 +28,30 @@ public class Endereco implements Serializable {
     public Endereco() {
     }
 
-    public Endereco(String logradouro, String numero, String complemento, String bairro, String cep) {
+    public Endereco(String logradouro, String numero, String complemento, String bairro, String cep, String cidade, String estado) {
         this.logradouro = logradouro;
         this.numero = numero;
         this.complemento = complemento;
         this.bairro = bairro;
         this.cep = cep;
+        this.cidade = cidade;
+        this.estado = estado;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
     public String getLogradouro() {

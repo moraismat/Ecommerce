@@ -6,6 +6,8 @@ public class EnderecoRequest {
     public String complemento;
     public String bairro;
     public String cep;
+    public String estado;
+    public String cidade;
     public Integer cliente_id;
     public Integer endereco_id;
 

@@ -58,7 +58,8 @@ public class EnderecoService {
         }
 
         Endereco endereco = new Endereco(enderecoCreateRequest.logradouro, enderecoCreateRequest.numero,
-                enderecoCreateRequest.complemento, enderecoCreateRequest.bairro, enderecoCreateRequest.cep);
+                enderecoCreateRequest.complemento, enderecoCreateRequest.bairro, enderecoCreateRequest.cep,
+                enderecoCreateRequest.cidade, enderecoCreateRequest.estado);
         endereco.setCliente(cliente);
         cliente.setEndereco(endereco);
 
