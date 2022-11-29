@@ -1,6 +1,8 @@
 package com.project.ecommerce.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 
 import javax.persistence.Embeddable;
@@ -11,6 +13,7 @@ import javax.persistence.ManyToOne;
 public class ItemPedidoPK implements Serializable{
     private static final long serialVersionUID = 1L;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "pedido_id")
     private Pedido pedido;

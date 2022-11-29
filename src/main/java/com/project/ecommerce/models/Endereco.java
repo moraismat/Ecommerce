@@ -22,6 +22,7 @@ public class Endereco implements Serializable {
     private String cidade;
     private String estado;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "endereco", cascade = CascadeType.ALL)
     private Cliente cliente;
 
@@ -36,6 +37,14 @@ public class Endereco implements Serializable {
         this.cep = cep;
         this.cidade = cidade;
         this.estado = estado;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getCidade() {

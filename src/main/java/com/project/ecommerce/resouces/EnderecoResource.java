@@ -60,8 +60,8 @@ public class EnderecoResource {
         }
     }
 
-    @PutMapping(value = "/{id}/update")
-    private ResponseEntity updateEndereco(@PathVariable int id, @RequestBody EnderecoRequest enderecoCreateRequest){
+    @PutMapping(value = "/update")
+    private ResponseEntity updateEndereco(@RequestBody EnderecoRequest enderecoCreateRequest){
         try {
             Endereco endereco = enderecoService.updateEndereco(enderecoCreateRequest);
 

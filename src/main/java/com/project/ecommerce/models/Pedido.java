@@ -1,11 +1,12 @@
 package com.project.ecommerce.models;
 
-import com.project.ecommerce.models.enums.Pagamento;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+
 
 @Entity
 @Table(name = "pedido")
@@ -21,18 +22,27 @@ public class Pedido implements Serializable {
 
     private double total;
 
-    @OneToMany(mappedBy = "id.pedido")
-    private Set<ItemPedido> itensPedidos = new HashSet<ItemPedido>();;
-
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
+
+    @OneToMany(mappedBy = "id.pedido")
+    private Set<ItemPedido> itensPedidos = new HashSet<ItemPedido>();;
 
     public Pedido() {}
 
     public Pedido(Pagamento pagamento, double total) {
         this.pagamento = pagamento;
         this.total = total;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Pagamento getPagamento() {

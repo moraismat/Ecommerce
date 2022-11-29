@@ -5,14 +5,11 @@ import com.project.ecommerce.DTO.Request.PedidoRequest;
 import com.project.ecommerce.DTO.Request.UpdateStatusPedido;
 import com.project.ecommerce.Utils.Constantes;
 import com.project.ecommerce.Utils.Utils;
-import com.project.ecommerce.models.Cliente;
-import com.project.ecommerce.models.ItemPedido;
-import com.project.ecommerce.models.Pedido;
-import com.project.ecommerce.models.Produto;
+import com.project.ecommerce.models.*;
 import com.project.ecommerce.models.enums.EstadoPagamento;
-import com.project.ecommerce.models.enums.Pagamento;
 import com.project.ecommerce.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;

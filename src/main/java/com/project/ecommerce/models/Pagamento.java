@@ -1,6 +1,7 @@
-package com.project.ecommerce.models.enums;
+package com.project.ecommerce.models;
 
-import com.project.ecommerce.models.Pedido;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.project.ecommerce.models.enums.EstadoPagamento;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -20,6 +21,7 @@ public class Pagamento implements Serializable {
     private Date dtVencimento;
     private int numeroParcelas;
 
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "pedido_id")
     private Pedido pedido;

@@ -44,7 +44,7 @@ public class EnderecoService {
 
     public Endereco addEndereco(EnderecoRequest enderecoCreateRequest) throws Exception {
         Cliente cliente = clienteRepository.findById(enderecoCreateRequest.cliente_id).get();
-        if(cliente != null){
+        if(cliente == null){
             throw new Exception("Cliente: "
                     + Constantes.NENHUM_REGISTRO_ENCONTRADO_POR_ID
                     + enderecoCreateRequest.cliente_id);

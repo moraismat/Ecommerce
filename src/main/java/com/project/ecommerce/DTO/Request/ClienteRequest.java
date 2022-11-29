@@ -6,6 +6,7 @@ public class ClienteRequest {
     public String name;
     public String email;
     public Long cpf;
+    public EnderecoRequest enderecoRequest;
 
     public ClienteRequest() {}
 }

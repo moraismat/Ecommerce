@@ -1,7 +1,11 @@
 package com.project.ecommerce.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -22,8 +26,9 @@ public class Cliente implements Serializable {
     @JoinColumn(name = "endereco_id")
     private Endereco endereco;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "cliente")
-    private Set<Pedido> lstPedidos;
+    private List<Pedido> lstPedidos = new ArrayList<>();;
 
     public Cliente() {
     }
@@ -76,7 +81,11 @@ public class Cliente implements Serializable {
         this.endereco = endereco;
     }
 
-    public Set<Pedido> getLstPedidos() {
+    public List<Pedido> getLstPedidos() {
         return lstPedidos;
+    }
+
+    public void setPedidos(List<Pedido> pedidos) {
+        this.lstPedidos = pedidos;
     }
 }

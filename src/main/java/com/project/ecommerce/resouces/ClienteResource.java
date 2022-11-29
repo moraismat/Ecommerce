@@ -60,8 +60,8 @@ public class ClienteResource {
         }
     }
 
-    @PutMapping(value = "/{id}/update")
-    private ResponseEntity updateCliente(@PathVariable int id, @RequestBody ClienteRequest clienteCreateRequest){
+    @PutMapping(value = "/update")
+    private ResponseEntity updateCliente(@RequestBody ClienteRequest clienteCreateRequest){
         try {
             Cliente cliente = clienteService.updateCliente(clienteCreateRequest);
 

@@ -1,6 +1,8 @@
 package com.project.ecommerce.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 
 import javax.persistence.EmbeddedId;
