@@ -26,8 +26,8 @@ public class Cliente implements Serializable {
     @JoinColumn(name = "endereco_id")
     private Endereco endereco;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "cliente")
+    @JsonIgnore
     private List<Pedido> lstPedidos = new ArrayList<>();;
 
     public Cliente() {

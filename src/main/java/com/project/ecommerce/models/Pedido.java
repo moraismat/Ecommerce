@@ -23,10 +23,10 @@ public class Pedido implements Serializable {
     private double total;
 
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "id.pedido")
     private Set<ItemPedido> itensPedidos = new HashSet<ItemPedido>();;
 

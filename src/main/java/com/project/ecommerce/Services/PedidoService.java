@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -70,16 +71,25 @@ public class PedidoService {
         Pedido pedido = new Pedido();
 
         Cliente cliente = clienteRepository.findById(pedidoRequest.cliente_id).get();
-        if (cliente == null) {
+        if(cliente == null) {
             throw new Exception("Cliente: "
                     + Constantes.NENHUM_REGISTRO_ENCONTRADO_POR_ID
                     + pedidoRequest.cliente_id);
         }
         pedido.setCliente(cliente);
 
+        Pagamento pagamento = new Pagamento();
+        pagamento.setEstadoPagamento(EstadoPagamento.toEnum(pedidoRequest.pagamentoRequest.estadoPagamento));
+        //pagamento.setDtPagamento(new Date(pedidoRequest.pagamentoRequest.dtPagamento));
+        //pagamento.setDtVencimento(new Date(pedidoRequest.pagamentoRequest.dtVencimento));
+        pagamento.setNumeroParcelas(pedidoRequest.pagamentoRequest.numeroParcelas);
 
-        List<ItemPedidoRequest> lstItemPedidoRequest = pedidoRequest.lstItemPedidoRequest;
-        for (ItemPedidoRequest itemPedidoRequest: lstItemPedidoRequest) {
+        pedido.setPagamento(pagamento);
+
+        pagamentoRepository.save(pedido.getPagamento());
+        pedido = pedidoRepository.save(pedido);
+
+        for (ItemPedidoRequest itemPedidoRequest: pedidoRequest.lstItemPedidoRequest) {
             Produto produto = produtoRepository.findById(itemPedidoRequest.produto_id).get();
             if (produto == null){
                 throw new Exception("Pedido: "
@@ -91,27 +101,10 @@ public class PedidoService {
                     itemPedidoRequest.quantidade, itemPedidoRequest.preco
             );
             pedido.getItensPedidos().add(itemPedido);
-            itemPedidoRepository.save(itemPedido);
         }
+        itemPedidoRepository.saveAll(pedido.getItensPedidos());
 
-        Pagamento pagamento = new Pagamento();
-        pagamento.setPedido(pedido);
-        pagamento.setDtVencimento(new Date(pedidoRequest.pagamentoRequest.dtVencimento));
-
-        if(pedidoRequest.pagamentoRequest.numeroParcelas > 0){
-            pagamento.setNumeroParcelas(pedidoRequest.pagamentoRequest.numeroParcelas);
-            pagamento.setDtPagamento(new Date(pedidoRequest.pagamentoRequest.dtPagamento));
-            pagamento.setEstadoPagamento(EstadoPagamento.PAGO);
-        }
-        else {
-            pagamento.setEstadoPagamento(EstadoPagamento.PENDENTE);
-        }
-        pagamentoRepository.save(pagamento);
-
-        pedido.setPagamento(pagamento);
-        pedido.setTotal(
-                Utils.subTotal(pedido)
-        );
+        pedido.setTotal(Utils.subTotal(pedido));
         pedidoRepository.save(pedido);
         return pedido;
     }

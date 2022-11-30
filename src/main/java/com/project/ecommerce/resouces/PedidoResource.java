@@ -2,7 +2,10 @@ package com.project.ecommerce.resouces;
 
 import com.project.ecommerce.DTO.Request.PedidoRequest;
 import com.project.ecommerce.DTO.Request.UpdateStatusPedido;
+import com.project.ecommerce.DTO.Response.ItemPedidoResponse;
+import com.project.ecommerce.DTO.Response.PedidoResponse;
 import com.project.ecommerce.Services.PedidoService;
+import com.project.ecommerce.models.ItemPedido;
 import com.project.ecommerce.models.Pedido;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +25,8 @@ public class PedidoResource {
         try {
             List<Pedido> lstPedidos = pedidoService.findAllPedidos();
 
+
+
             return ResponseEntity.ok(lstPedidos);
         } catch (Exception e){
             return ResponseEntity.ok(e.getMessage());
@@ -33,7 +38,23 @@ public class PedidoResource {
         try {
             Pedido pedido = pedidoService.findPedidoById(id);
 
-            return ResponseEntity.ok().body(pedido);
+            PedidoResponse pedidoResponse = new PedidoResponse();
+            pedidoResponse.pedido_id = pedido.getId();
+            pedidoResponse.cliente = pedido.getCliente();
+            pedidoResponse.pagamento_id = pedido.getPagamento().getId();
+            pedidoResponse.total = pedido.getTotal();
+
+            for (ItemPedido itemPedido: pedido.getItensPedidos()) {
+                ItemPedidoResponse itemPedidoResponse = new ItemPedidoResponse();
+                itemPedidoResponse.desconto = itemPedido.getDesconto();
+                itemPedidoResponse.preco = itemPedido.getPreco();
+                itemPedidoResponse.quantidade = itemPedido.getQuantidade();
+                itemPedidoResponse.produto_id = itemPedido.getProduto().getId();
+
+                pedidoResponse.itensPedidos.add(itemPedidoResponse);
+            }
+
+            return ResponseEntity.ok().body(pedidoResponse);
         } catch (Exception e){
             return ResponseEntity.ok(e.getMessage());
         }
@@ -43,8 +64,11 @@ public class PedidoResource {
     private ResponseEntity createPedido(@RequestBody PedidoRequest pedidoRequest){
         try {
             Pedido pedido = pedidoService.createNewPedido(pedidoRequest);
+            Object pedidoResponse = new Object(){
 
-            return ResponseEntity.ok(pedido);
+            };
+
+            return ResponseEntity.ok().body(pedido);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

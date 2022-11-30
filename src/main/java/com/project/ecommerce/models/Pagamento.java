@@ -37,6 +37,14 @@ public class Pagamento implements Serializable {
         this.pedido = pedido;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public EstadoPagamento getEstadoPagamento() {
         return estadoPagamento;
     }
