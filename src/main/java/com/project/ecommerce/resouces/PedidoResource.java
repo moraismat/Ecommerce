@@ -41,7 +41,7 @@ public class PedidoResource {
             PedidoResponse pedidoResponse = new PedidoResponse();
             pedidoResponse.pedido_id = pedido.getId();
             pedidoResponse.cliente = pedido.getCliente();
-            pedidoResponse.pagamento_id = pedido.getPagamento().getId();
+            pedidoResponse.pagamento = pedido.getPagamento();
             pedidoResponse.total = pedido.getTotal();
 
             for (ItemPedido itemPedido: pedido.getItensPedidos()) {
@@ -64,11 +64,24 @@ public class PedidoResource {
     private ResponseEntity createPedido(@RequestBody PedidoRequest pedidoRequest){
         try {
             Pedido pedido = pedidoService.createNewPedido(pedidoRequest);
-            Object pedidoResponse = new Object(){
 
-            };
+            PedidoResponse pedidoResponse = new PedidoResponse();
+            pedidoResponse.pedido_id = pedido.getId();
+            pedidoResponse.cliente = pedido.getCliente();
+            pedidoResponse.pagamento = pedido.getPagamento();
+            pedidoResponse.total = pedido.getTotal();
 
-            return ResponseEntity.ok().body(pedido);
+            for (ItemPedido itemPedido: pedido.getItensPedidos()) {
+                ItemPedidoResponse itemPedidoResponse = new ItemPedidoResponse();
+                itemPedidoResponse.desconto = itemPedido.getDesconto();
+                itemPedidoResponse.preco = itemPedido.getPreco();
+                itemPedidoResponse.quantidade = itemPedido.getQuantidade();
+                itemPedidoResponse.produto_id = itemPedido.getProduto().getId();
+
+                pedidoResponse.itensPedidos.add(itemPedidoResponse);
+            }
+
+            return ResponseEntity.ok().body(pedidoResponse);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

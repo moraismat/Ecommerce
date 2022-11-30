@@ -8,7 +8,7 @@ import java.util.List;
 
 public class PedidoResponse {
     public Integer pedido_id;
-    public Integer pagamento_id;
+    public Pagamento pagamento;
     public double total;
     public Cliente cliente;
     public List<ItemPedidoResponse> itensPedidos = new ArrayList<>();

@@ -13,6 +13,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -80,13 +82,19 @@ public class PedidoService {
 
         Pagamento pagamento = new Pagamento();
         pagamento.setEstadoPagamento(EstadoPagamento.toEnum(pedidoRequest.pagamentoRequest.estadoPagamento));
-        //pagamento.setDtPagamento(new Date(pedidoRequest.pagamentoRequest.dtPagamento));
-        //pagamento.setDtVencimento(new Date(pedidoRequest.pagamentoRequest.dtVencimento));
+        Date dtPagamento = new SimpleDateFormat("dd/MM/yyyy").parse(pedidoRequest.pagamentoRequest.dtPagamento);
+        Date dtVencimento = new SimpleDateFormat("dd/MM/yyyy").parse(pedidoRequest.pagamentoRequest.dtVencimento);
+        pagamento.setDtPagamento(dtPagamento);
+        pagamento.setDtVencimento(dtVencimento);
         pagamento.setNumeroParcelas(pedidoRequest.pagamentoRequest.numeroParcelas);
 
-        pedido.setPagamento(pagamento);
+        //pedido.setPagamento(pagamento);
+        pedido = pedidoRepository.save(pedido);
 
-        pagamentoRepository.save(pedido.getPagamento());
+        pagamento.setPedido(pedido);
+        pagamento = pagamentoRepository.save(pagamento);
+
+        pedido.setPagamento(pagamento);
         pedido = pedidoRepository.save(pedido);
 
         for (ItemPedidoRequest itemPedidoRequest: pedidoRequest.lstItemPedidoRequest) {
